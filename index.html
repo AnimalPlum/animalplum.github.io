@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>APlum</title>
+
+<style>
+:root{
+    --bg1:#10051f;
+    --bg2:#071b3d;
+    --glass:rgba(120,90,255,.12);
+    --glass2:rgba(100,170,255,.18);
+    --border:rgba(170,150,255,.35);
+    --text:#ffffff;
+    --muted:#c5c7ff;
+    --blue:#8bd7ff;
+    --purple:#a678ff;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html,body{
+    height:100%;
+}
+
+body{
+    font-family:"Segoe UI",Tahoma,Geneva,Verdana,sans-serif;
+    color:var(--text);
+
+    background:
+        radial-gradient(circle at top left,#4b1f8f 0%,transparent 40%),
+        radial-gradient(circle at bottom right,#075b9e 0%,transparent 45%),
+        linear-gradient(135deg,#090019,#071b3d);
+
+    overflow-x:hidden;
+}
+
+/* Animated liquid background */
+
+body::before{
+    content:"";
+
+    position:fixed;
+    inset:-40%;
+
+    background:
+        radial-gradient(circle,#9b6cff66 0%,transparent 30%),
+        radial-gradient(circle,#4bc8ff66 0%,transparent 28%),
+        radial-gradient(circle,#ffffff18 0%,transparent 20%);
+
+    background-position:
+        left top,
+        right bottom,
+        center;
+
+    filter:blur(100px);
+
+    animation:aurora 18s ease-in-out infinite alternate;
+
+    z-index:-3;
+}
+
+@keyframes aurora{
+    from{
+        transform:
+            translate(-8%,-4%)
+            rotate(0deg)
+            scale(1);
+    }
+
+    to{
+        transform:
+            translate(8%,4%)
+            rotate(18deg)
+            scale(1.15);
+    }
+}
+
+@keyframes float{
+    0%,100%{
+        transform:translateY(0px);
+    }
+
+    50%{
+        transform:translateY(-10px);
+    }
+}
+
+.container{
+    min-height:100vh;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    padding:40px 20px;
+}
+
+.card{
+    animation:float 6s ease-in-out infinite;
+
+    width:100%;
+    max-width:540px;
+
+    padding:42px;
+
+    position:relative;
+
+    border-radius:28px;
+
+    overflow:hidden;
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(255,255,255,.18),
+            rgba(255,255,255,.08)
+        );
+
+    backdrop-filter:
+        blur(24px)
+        saturate(180%);
+
+    -webkit-backdrop-filter:
+        blur(24px)
+        saturate(180%);
+
+    border:1px solid var(--border);
+
+    box-shadow:
+        inset 0 1px rgba(255,255,255,.6),
+        inset 0 -20px 40px rgba(0,0,0,.18),
+        0 25px 70px rgba(0,0,0,.45),
+        0 0 70px rgba(70,180,255,.16);
+}
+
+/* Reflection */
+
+.card::before{
+    content:"";
+
+    position:absolute;
+
+    left:0;
+    top:0;
+
+    width:100%;
+    height:42%;
+
+    background:
+        linear-gradient(
+            rgba(255,255,255,.28),
+            transparent
+        );
+
+    pointer-events:none;
+}
+
+/* Glow */
+
+.card::after{
+
+    content:"";
+
+    position:absolute;
+
+    inset:-2px;
+
+    border-radius:30px;
+
+    background:
+        linear-gradient(
+            120deg,
+            #6ad2ff,
+            #7b81ff,
+            #5cf0ff,
+            #6ad2ff
+        );
+
+    background-size:400%;
+
+    animation:borderMove 10s linear infinite;
+
+    filter:blur(18px);
+
+    opacity:.35;
+
+    z-index:-1;
+}
+
+@keyframes borderMove{
+    from{
+        background-position:0%;
+    }
+    to{
+        background-position:400%;
+    }
+}
+
+h1{
+
+    font-size:3.3rem;
+
+    text-align:center;
+
+    letter-spacing:3px;
+
+    background:
+        linear-gradient(
+            white,
+            #ddf6ff,
+            #8fd9ff,
+            #7b85ff
+        );
+
+    -webkit-background-clip:text;
+
+    color:transparent;
+
+    text-shadow:
+        0 0 20px rgba(140,220,255,.4);
+}
+
+.subtitle{
+
+    margin-top:10px;
+    margin-bottom:34px;
+
+    text-align:center;
+
+    color:var(--muted);
+
+    font-size:1rem;
+}
+
+.links{
+
+    display:flex;
+    flex-direction:column;
+    gap:15px;
+}
+
+.link{
+
+    animation:float 5s ease-in-out infinite;
+
+    position:relative;
+
+    overflow:hidden;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:16px 20px;
+
+    text-decoration:none;
+
+    color:white;
+
+    border-radius:18px;
+
+    background:
+        linear-gradient(
+            rgba(255,255,255,.14),
+            rgba(255,255,255,.05)
+        );
+
+    border:1px solid rgba(255,255,255,.15);
+
+    transition:.35s;
+}
+
+/* Shine */
+
+.link::before{
+
+    content:"";
+
+    position:absolute;
+
+    top:0;
+
+    left:-120%;
+
+    width:60%;
+    height:100%;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(255,255,255,.55),
+            transparent
+        );
+
+    transform:skewX(-25deg);
+
+    transition:.8s;
+}
+
+.link:hover::before{
+    left:160%;
+}
+
+.link:hover{
+
+    transform:
+        translateY(-4px)
+        scale(1.02);
+
+    border-color:#80d8ff;
+
+    box-shadow:
+        0 0 28px rgba(120,210,255,.28);
+}
+
+.label{
+    color:#c6d6eb;
+}
+
+.discord{
+    cursor:pointer;
+}
+
+footer{
+
+    margin-top:34px;
+
+    text-align:center;
+
+    color:#9cb5ce;
+
+    font-size:.9rem;
+}
+
+small{
+    display:block;
+    margin-top:6px;
+    opacity:.7;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="card">
+
+<h1>APlum</h1>
+
+<div class="subtitle">
+Awesome links:
+</div>
+
+<div class="links">
+
+<a class="link"
+href="https://aplum.itch.io"
+target="_blank">
+
+<span>🎮 itch.io</span>
+<span class="label">aplum</span>
+
+</a>
+
+<a class="link"
+href="https://www.youtube.com/@APlumCZ"
+target="_blank">
+
+<span>▶ YouTube</span>
+<span class="label">@APlumCZ</span>
+
+</a>
+
+<a class="link"
+href="https://x.com/APlumCZ"
+target="_blank">
+
+<span>𝕏 X</span>
+<span class="label">@APlumCZ</span>
+
+</a>
+
+<a class="link"
+href="mailto:animalplum7384@gmail.com">
+
+<span>📧 Email</span>
+<span class="label">Contact</span>
+
+</a>
+
+<div class="link discord" onclick="copyDiscord()">
+
+<span>💬 Discord</span>
+
+<span id="discordName">aplumcz</span>
+
+</div>
+
+</div>
+
+<footer>
+
+Something for the funny! (Something for the funny)
+
+<small>Click the Discord box to copy the username btw.</small>
+
+</footer>
+
+</div>
+
+</div>
+
+<script>
+function copyDiscord(){
+
+    navigator.clipboard.writeText("aplumcz");
+
+    const name=document.getElementById("discordName");
+
+    const old=name.textContent;
+
+    name.textContent="Copied!";
+
+    setTimeout(()=>{
+        name.textContent=old;
+    },1200);
+
+}
+</script>
+
+</body>
+</html>
